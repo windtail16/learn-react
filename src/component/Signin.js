@@ -1,43 +1,41 @@
 import { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase-config";
 
-export default function Signup() {
-  const [registerEmail, setRegisterEmail] = useState("");
-  const [registerPassword, setRegisterPassword] = useState("");
+export default function Signin() {
+  const [loginEmail, setLoginEmail] = useState(""); // 코드 추가
+  const [loginPassword, setLoginPassword] = useState(""); // 코드 추가
 
-  const register = async (e) => {
+  const login = async (e) => {
     e.preventDefault();
+
     try {
-      const user = await createUserWithEmailAndPassword(
+      const user = await signInWithEmailAndPassword(
         auth,
-        registerEmail,
-        registerPassword
+        loginEmail,
+        loginPassword
       );
-
       console.log(user);
-      alert('가입을 환영합니다.');
-
+      alert(user.user.displayName + '님 환영합니다.');
       window.location.href = "/Blog";
     } catch (error) {
       console.log(error.message);
     }
   };
-
   return (
     <div className="container">
       <div className="card">
         <div className="card-body">
-          <h5 className="card-title">Sign up</h5>
-          <h6 className="card-subtitle mb-2 text-muted">이메일과 패스워드를 입력해 주세요.</h6>
-          <form onSubmit={register}>
+          <h5 className="card-title">Sign in</h5>
+          <h6 className="card-subtitle mb-2 text-muted">가입한 이메일과 패스워드를 입력해 주세요.</h6>
+          <form onSubmit={login}>
             <div className="form-group mb-2">
-              <label htmlFor="email">Email address</label>
+            <label htmlFor="email1">Email address</label>
               <input type="email" className="form-control"
                 id="email"
                 placeholder="Email"
                 onChange={(e) => {
-                  setRegisterEmail(e.target.value);
+                  setLoginEmail(e.target.value);
                 }}
               />
             </div>
@@ -48,20 +46,16 @@ export default function Signup() {
                 placeholder="Password"
                 autoComplete="on"
                 onChange={(e) => {
-                  setRegisterPassword(e.target.value);
+                  setLoginPassword(e.target.value);
                 }}
               />
             </div>
             <div className="d-grid">
-              <button type="submit" className="btn btn-primary">Signup</button>
+              <button type="submit" className="btn btn-primary">Signin</button>
             </div>
           </form>
         </div>
-        
       </div>
-      
-
-      
     </div>
   );
 }
