@@ -24,7 +24,7 @@ export default function Signin() {
   };
   return (
     <div className="container">
-      <div className="card">
+      <div className="card mt-5">
         <div className="card-body">
           <h5 className="card-title">Sign in</h5>
           <h6 className="card-subtitle mb-2 text-muted">가입한 이메일과 패스워드를 입력해 주세요.</h6>
