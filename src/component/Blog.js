@@ -1,24 +1,30 @@
+import { useState, useEffect } from "react";
+import { collection, getDocs } from "firebase/firestore";
 
-import React, { useState } from "react";
-import {
-    onAuthStateChanged, // 코드 추가
-    signOut, // 코드추가
-} from "firebase/auth";
-import { auth } from "../firebase-config";
+import { db } from "../firebase-config";
 
 
 export default function Blog() {
+  const [posts, setPosts] = useState([]);
 
-  onAuthStateChanged(auth, (currentUser) => {
-    setUser(currentUser);
-  });
-  const logout = async () => {
-    await signOut(auth);
-    alert('로그아웃 되었습니다.');
-    window.location.href = "/";
-  };
+  useEffect(()=>{
+    const postsCollectionRef = collection(db, "Post");
+  	// 비동기로 데이터 받을준비
+    const getPosts = async () => {
+     // getDocs로 컬렉션안에 데이터 가져오기
+      const data = await getDocs(postsCollectionRef);
 
-  const [user, setUser] = useState({}); // 코드 추가
+      setPosts(data.docs.map((doc)=>({ ...doc.data(), id: doc.id})))
+    }
+
+    getPosts();
+  },[]);
+
+  const showPosts = posts.map((value)=> (<div key={value.id}>
+    <h3>Title: {value.title}</h3> 
+    <p>category: {value.category}</p>
+  </div>))
+
 
   return (
     <div className="container">
@@ -27,13 +33,14 @@ export default function Blog() {
           <span className="fs-4">Windtail`s Blog</span>
         </a>
         <div className="col-md-5 text-end">
-          <span className="me-2">{user?.email}</span>
-          <button type="button" className="btn btn-outline-primary" onClick={logout}>Sign out</button>
+          test
         </div>
       </header>
       <h1>Blog</h1>
-      
-      
+      {showPosts}
+      <div>
+        <button className="btn btn-primary">Write</button>
+      </div>
     </div>
   );
 }

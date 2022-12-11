@@ -16,7 +16,8 @@ export default function Signin() {
         loginPassword
       );
       console.log(user);
-      alert(user.user.displayName + '님 환영합니다.');
+      //alert(user.user.displayName + '님 환영합니다.');
+      alert('환영합니다.');
       window.location.href = "/Blog";
     } catch (error) {
       console.log(error.message);
