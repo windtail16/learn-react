@@ -1,4 +1,5 @@
-import hoonPic from '../images/hoon.png';
+// import hoonPic from '../images/hoon.png';
+import '../css/about.scss'
 
 export default function About() {
   return (
@@ -43,7 +44,7 @@ export default function About() {
               </div>
             </div>
             <div className="col-lg-3">
-              <img src={hoonPic} className="img-fluid" alt="hoon from DMZ" />
+              {/* <img src={hoonPic} className="img-fluid" alt="hoon from DMZ" /> */}
             </div>
           </div>   
         </div>

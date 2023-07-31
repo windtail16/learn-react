@@ -1,10 +1,12 @@
+import '../css/home.scss'
+
 export default function Hello() {
   return (
     <div className="header-bg" id="hello">
       <div className="header">
         <div className="container">
           <div className="absolute-center text-start">
-            <h1 className="info">
+            <h1 className="info mb-3">
               Hello<br />I am <u>Sanghoon Bae</u>
             </h1>
             <h3>
